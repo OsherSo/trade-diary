@@ -1,19 +1,25 @@
 const TableHeader = () => (
   <thead>
     <tr className="bg-gray-200">
-      <th className="border p-2">Symbol</th>
-      <th className="border p-2">Type</th>
-      <th className="border p-2">Entry Date</th>
-      <th className="border p-2">Entry Price</th>
-      <th className="border p-2">Quantity</th>
-      <th className="border p-2">Exit Date</th>
-      <th className="border p-2">Exit Price</th>
-      <th className="border p-2">Stop Loss</th>
-      <th className="border p-2">Take Profit</th>
-      <th className="border p-2">Fees</th>
-      <th className="border p-2">Profit/Loss</th>
-      <th className="border p-2">Notes</th>
-      <th className="border p-2">Actions</th>
+      {[
+        "Symbol",
+        "Type",
+        "Entry Date",
+        "Entry Price",
+        "Quantity",
+        "Exit Date",
+        "Exit Price",
+        "Stop Loss",
+        "Take Profit",
+        "Fees",
+        "Profit/Loss",
+        "Notes",
+        "Actions",
+      ].map((header) => (
+        <th key={header} className="border p-2">
+          {header}
+        </th>
+      ))}
     </tr>
   </thead>
 );

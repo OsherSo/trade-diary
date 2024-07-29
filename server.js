@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-app.use(express.static(path.resolve(__dirname, "./public"), { maxAge: "1d" }));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cookieParser());
 app.use(express.json({ limit: "10kb" }));

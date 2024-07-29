@@ -4,34 +4,40 @@ import ActionButtons from "./ActionButtons";
 const TradeRow = ({ trade, onEditTrade, onDeleteTrade }) => {
   const [showNotes, setShowNotes] = useState(false);
 
-  const formatNumber = (value) => {
-    return value != null ? Number(value).toFixed(2) : "N/A";
-  };
-
-  const formatDate = (date) => {
-    return date ? new Date(date).toLocaleDateString() : "N/A";
-  };
+  const formatNumber = (value) =>
+    value != null ? Number(value).toFixed(2) : "N/A";
+  const formatDate = (date) =>
+    date ? new Date(date).toLocaleDateString() : "N/A";
 
   return (
     <>
       <tr className="hover:bg-gray-100">
-        <td className="border p-2">{trade.symbol}</td>
-        <td className="border p-2">{trade.tradeType}</td>
-        <td className="border p-2">{formatDate(trade.entryDate)}</td>
-        <td className="border p-2">${formatNumber(trade.entryPrice)}</td>
-        <td className="border p-2">{trade.quantity || "N/A"}</td>
-        <td className="border p-2">{formatDate(trade.exitDate) || "Open"}</td>
-        <td className="border p-2">${formatNumber(trade.exitPrice)}</td>
-        <td className="border p-2">${formatNumber(trade.stopLoss)}</td>
-        <td className="border p-2">${formatNumber(trade.takeProfit)}</td>
-        <td className="border p-2">${formatNumber(trade.fees)}</td>
-        <td
-          className={`border p-2 ${
-            (trade.profitLoss || 0) >= 0 ? "text-green-600" : "text-red-600"
-          }`}
-        >
-          ${formatNumber(trade.profitLoss)}
-        </td>
+        {[
+          "symbol",
+          "tradeType",
+          "entryDate",
+          "entryPrice",
+          "quantity",
+          "exitDate",
+          "exitPrice",
+          "stopLoss",
+          "takeProfit",
+          "fees",
+          "profitLoss",
+        ].map((field, index) => (
+          <td key={index} className="border p-2">
+            {field === "entryPrice" ||
+            field === "exitPrice" ||
+            field === "stopLoss" ||
+            field === "takeProfit" ||
+            field === "fees" ||
+            field === "profitLoss"
+              ? `$${formatNumber(trade[field])}`
+              : field === "entryDate" || field === "exitDate"
+              ? formatDate(trade[field])
+              : trade[field] || "N/A"}
+          </td>
+        ))}
         <td className="border p-2">
           <button
             onClick={() => setShowNotes(!showNotes)}

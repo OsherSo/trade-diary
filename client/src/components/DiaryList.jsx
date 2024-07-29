@@ -1,13 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDashboardContext } from "../pages/DashboardLayout";
 
 const DiaryList = () => {
   const { diaries, deleteDiary } = useDashboardContext();
+  const navigate = useNavigate();
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this diary?")) {
       await deleteDiary(id);
+      navigate("/dashboard"); // Navigate to dashboard after deletion
     }
   };
 
