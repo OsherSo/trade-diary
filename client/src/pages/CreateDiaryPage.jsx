@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDiaryContext } from "../context/DiaryContext";
+import { useDashboardContext } from "./DashboardLayout";
 
 const CreateDiaryPage = () => {
   const [diaryData, setDiaryData] = useState({ name: "", description: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const { addDiary } = useDiaryContext();
+  const { addDiary } = useDashboardContext();
 
   const handleChange = (e) => {
     const { name, value } = e.target;

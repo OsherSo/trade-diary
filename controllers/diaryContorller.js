@@ -29,6 +29,6 @@ export const updateDiary = async (req, res) => {
 };
 
 export const deleteDiary = async (req, res) => {
-  await req.document.remove();
-  res.status(StatusCodes.OK).json({ msg: "Diary deleted successfully" });
+  await Diary.findByIdAndDelete(req.document._id);
+  res.status(StatusCodes.NO_CONTENT).send();
 };

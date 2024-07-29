@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { useDiaryContext } from "../context/DiaryContext";
+import { useDashboardContext } from "../pages/DashboardLayout";
 
 const DiaryList = () => {
-  const { diaries, fetchDiaries, deleteDiary } = useDiaryContext();
-
-  useEffect(() => {
-    fetchDiaries();
-  }, [fetchDiaries]);
+  const { diaries, deleteDiary } = useDashboardContext();
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this diary?")) {
