@@ -27,7 +27,7 @@ const tradeSchema = new mongoose.Schema(
     },
     exitDate: {
       type: Date,
-      require: true,
+      required: true,
     },
     exitPrice: {
       type: Number,
@@ -60,13 +60,10 @@ const tradeSchema = new mongoose.Schema(
 
 tradeSchema.pre("save", function (next) {
   if (this.exitPrice && this.entryPrice && this.quantity) {
-    if (this.tradeType === "long") {
-      this.profitLoss =
-        (this.exitPrice - this.entryPrice) * this.quantity - this.fees;
-    } else {
-      this.profitLoss =
-        (this.entryPrice - this.exitPrice) * this.quantity - this.fees;
-    }
+    this.profitLoss =
+      this.tradeType === "long"
+        ? (this.exitPrice - this.entryPrice) * this.quantity - this.fees
+        : (this.entryPrice - this.exitPrice) * this.quantity - this.fees;
   }
   next();
 });

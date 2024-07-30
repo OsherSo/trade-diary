@@ -1,15 +1,13 @@
 import mongoose from "mongoose";
 import { body, param } from "express-validator";
-
 import User from "../models/User.js";
-
 import {
   BadRequestError,
   NotFoundError,
   UnauthorizedError,
 } from "../errors/customErrors.js";
 
-const validateId = (model, idField = "id", userIdField = "user") =>
+export const validateId = (model, idField = "id", userIdField = "user") =>
   param(idField).custom(async (id, { req }) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       throw new BadRequestError(`Invalid ${model.modelName} id`);
@@ -26,10 +24,10 @@ const validateId = (model, idField = "id", userIdField = "user") =>
     req.document = document;
   });
 
-const isNonEmptyString = (field) =>
+export const isNonEmptyString = (field) =>
   body(field).isString().notEmpty().withMessage(`${field} is required`);
 
-const validateUsername = () =>
+export const validateUsername = () =>
   body("username")
     .notEmpty()
     .withMessage("username is required")
@@ -40,32 +38,12 @@ const validateUsername = () =>
       }
     });
 
-const validateUniqueUsername = (field = "username") =>
-  body(field)
-    .notEmpty()
-    .withMessage(`${field} is required`)
-    .custom(async (username, { req }) => {
-      const user = await User.findOne({ username });
-      if (user && user._id.toString() !== req.user.userId) {
-        throw new BadRequestError(`${field} already exists`);
-      }
-    });
-
-const validatePassword = () =>
+export const validatePassword = () =>
   body("password")
     .notEmpty()
     .withMessage("password is required")
     .isLength({ min: 8 })
     .withMessage("password must be at least 8 characters long");
 
-const validateOptionalField = (field, values) =>
+export const validateOptionalField = (field, values) =>
   body(field).optional().isIn(values).withMessage(`Invalid ${field}`);
-
-export {
-  validateId,
-  isNonEmptyString,
-  validateUsername,
-  validateUniqueUsername,
-  validatePassword,
-  validateOptionalField,
-};

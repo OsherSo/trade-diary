@@ -1,5 +1,4 @@
 import { StatusCodes } from "http-status-codes";
-
 import Diary from "../models/Diary.js";
 
 export const createDiary = async (req, res) => {

@@ -1,5 +1,4 @@
 import { verifyJWT } from "../utils/token.js";
-
 import { UnauthenticatedError } from "../errors/customErrors.js";
 
 export const authenticateUser = async (req, res, next) => {

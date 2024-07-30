@@ -1,5 +1,4 @@
 import { validationResult } from "express-validator";
-
 import {
   BadRequestError,
   NotFoundError,
@@ -17,11 +16,9 @@ const withValidationErrors = (validateValues) => {
         if (errorMessages[0].includes("not found")) {
           throw new NotFoundError(errorMessages);
         }
-
         if (errorMessages[0].includes("Unauthorized")) {
           throw new UnauthorizedError(errorMessages);
         }
-
         throw new BadRequestError(errorMessages);
       }
       next();

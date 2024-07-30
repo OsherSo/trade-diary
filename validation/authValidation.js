@@ -5,15 +5,13 @@ import {
   validatePassword,
 } from "./commonValidations.js";
 
-const validateRegister = withValidationErrors([
+export const validateRegister = withValidationErrors([
   isNonEmptyString("username"),
   validateUsername(),
   validatePassword(),
 ]);
 
-const validateLogin = withValidationErrors([
+export const validateLogin = withValidationErrors([
   isNonEmptyString("username"),
   validatePassword(),
 ]);
-
-export { validateRegister, validateLogin };

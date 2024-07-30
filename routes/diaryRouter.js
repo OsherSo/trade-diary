@@ -1,5 +1,4 @@
-import express from "express";
-
+import { Router } from "express";
 import {
   createDiary,
   getAllDiaries,
@@ -7,14 +6,13 @@ import {
   updateDiary,
   deleteDiary,
 } from "../controllers/diaryContorller.js";
-
 import {
   validateCreateDiary,
   validateUpdateDiary,
   validateDiaryId,
 } from "../validation/diaryValidation.js";
 
-const router = express.Router();
+const router = Router();
 
 router.route("/").post(validateCreateDiary, createDiary).get(getAllDiaries);
 

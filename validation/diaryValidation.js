@@ -1,5 +1,4 @@
 import { body } from "express-validator";
-
 import Diary from "../models/Diary.js";
 import { validateId } from "./commonValidations.js";
 import withValidationErrors from "./withValidationErrors.js";
